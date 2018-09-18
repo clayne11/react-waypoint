@@ -1,6 +1,7 @@
 import { addEventListener } from 'consolidated-events';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import computeOffsetPixels from './computeOffsetPixels';
 import constants from './constants';
@@ -32,7 +33,7 @@ export default class Waypoint extends BaseClass {
   constructor(props) {
     super(props);
 
-    this.refElement = (e) => this._ref = e;
+    this.refElement = (node) => this._ref = ReactDOM.findDOMNode(node);
   }
 
   componentWillMount() {
@@ -306,7 +307,7 @@ export default class Waypoint extends BaseClass {
       return React.cloneElement(children, { ref });
     }
 
-    return React.cloneElement(children, { innerRef: this.refElement });
+    return React.cloneElement(children, { ref: this.refElement });
   }
 }
 

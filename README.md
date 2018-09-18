@@ -279,23 +279,25 @@ composite component (e.g. `<MyComponent />`).
 Waypoint needs a DOM node to compute its boundaries. When you pass a DOM
 component to Waypoint, it handles getting a reference to the DOM node through
 the `ref` prop automatically. If you pass a composite component, you need to
-make use of the `innerRef` prop passed by Waypoint to your component. Simply
-pass it through as the `ref` of a DOM component and you're all set. Like in
-this example:
+make use of [ref forwarding](https://reactjs.org/docs/forwarding-refs.html) and
+the `ref` prop passed by Waypoint to your component.
+Simply pass it through as the `ref` of a DOM component and you're all set.
+Here is an example using forward refs:
 
 ```jsx
 class Block extends React.Component {
   render() {
-    return <div ref={this.props.innerRef}>Hello</div>
+    return <div ref={this.props.forwardedRef}>Hello</div>
   }
 }
-Block.propTypes = {
-  innerRef: PropTypes.func.isRequired,
-}
+
+const ForwardRefBlock = React.forwardRef((props, ref) =>
+  <Block {...props} forwardedRef={ref}/>
+)
 
 const App = () => (
   <Waypoint>
-    <Block />
+    <ForwardRefBlock />
   </Waypoint>
 )
 ```

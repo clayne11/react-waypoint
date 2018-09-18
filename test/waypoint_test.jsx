@@ -894,14 +894,18 @@ describe('<Waypoint>', function() {
       window.onerror = prevOnError;
     });
 
-    it('does not throw with a Stateful Component as a child', () => {
+    it('does not throw with a Stateful Component using forward ref as a child', () => {
       class StatefulComponent extends React.Component {
         render() {
-          return <div ref={this.props.innerRef} />;
+          return <div ref={this.props.forwardedRef} />;
         }
       }
 
-      this.props.children = <StatefulComponent />;
+      const ForwardedStatefulComponent = React.forwardRef((props, ref) => (
+        <StatefulComponent {...props} forwardedRef={ref} />
+      ));
+
+      this.props.children = <ForwardedStatefulComponent />;
       expect(this.subject).not.toThrow();
     });
 
@@ -917,7 +921,7 @@ describe('<Waypoint>', function() {
     });
 
     it('does not throw with a Stateless Component as a child', () => {
-      const StatelessComponent = (props) => <div ref={props.innerRef} />;
+      const StatelessComponent = React.forwardRef((_props, ref) => <div ref={ref} />);
 
       this.props.children = <StatelessComponent />;
       expect(this.subject).not.toThrow();
