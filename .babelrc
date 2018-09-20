@@ -1,4 +1,9 @@
 {
-  "presets": [["airbnb", { "modules": false }]],
-  "plugins": [["transform-react-remove-prop-types", { mode: 'unsafe-wrap' }]]
+  "presets": [["airbnb", {"modules": false}]],
+  "plugins": [["transform-react-remove-prop-types", {"mode": "unsafe-wrap"}]],
+  "env": {
+    "test": {
+      "presets": [["airbnb", {"modules": true}]]
+    }
+  }
 }

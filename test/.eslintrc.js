@@ -1,13 +1,6 @@
 module.exports = {
-  globals: {
-    afterEach: false,
-    beforeEach: false,
-    describe: false,
-    expect: false,
-    it: false,
-    jasmine: false,
-    spyOn: false,
-    xit: false,
+  env: {
+    'jest': true
   },
 
   rules: {
